@@ -1,6 +1,6 @@
-// app/page.jsx (or pages/index.jsx for Pages Router)
+// app/page.jsx
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Hero from './components/Hero'; // This is now our SearchHero
 import ListingCard from './components/ListingCard';
 // import { motion } from 'framer-motion'; // Uncomment and use for Framer Motion animations
 
@@ -16,7 +16,9 @@ export default function HomePage() {
       bathrooms: 3,
       area: 1800,
       verified: true,
-      agentImage: 'https://via.placeholder.com/40/FF0000/FFFFFF?text=AG1'
+      isNew: true, // Added isNew property
+      agentImage: 'https://via.placeholder.com/40/FF0000/FFFFFF?text=AG1',
+      agentName: 'Agent Alex' // Added agentName property
     },
     {
       id: '2',
@@ -27,7 +29,9 @@ export default function HomePage() {
       bathrooms: 2,
       area: 1200,
       verified: false,
-      agentImage: 'https://via.placeholder.com/40/0000FF/FFFFFF?text=AG2'
+      isNew: false,
+      agentImage: 'https://via.placeholder.com/40/0000FF/FFFFFF?text=AG2',
+      agentName: 'Agent Ben'
     },
     {
       id: '3',
@@ -38,7 +42,9 @@ export default function HomePage() {
       bathrooms: 2,
       area: 1000,
       verified: true,
-      agentImage: 'https://via.placeholder.com/40/00FF00/FFFFFF?text=AG3'
+      isNew: true,
+      agentImage: 'https://via.placeholder.com/40/00FF00/FFFFFF?text=AG3',
+      agentName: 'Agent Cara'
     },
     {
         id: '4',
@@ -49,7 +55,9 @@ export default function HomePage() {
         bathrooms: 5,
         area: 4500,
         verified: true,
-        agentImage: 'https://via.placeholder.com/40/FFFF00/000000?text=AG4'
+        isNew: false,
+        agentImage: 'https://via.placeholder.com/40/FFFF00/000000?text=AG4',
+        agentName: 'Agent David'
       },
       {
         id: '5',
@@ -60,7 +68,9 @@ export default function HomePage() {
         bathrooms: 4,
         area: 5000,
         verified: false,
-        agentImage: 'https://via.placeholder.com/40/FF00FF/FFFFFF?text=AG5'
+        isNew: true,
+        agentImage: 'https://via.placeholder.com/40/FF00FF/FFFFFF?text=AG5',
+        agentName: 'Agent Emily'
       },
       {
         id: '6',
@@ -71,7 +81,9 @@ export default function HomePage() {
         bathrooms: 2,
         area: 950,
         verified: true,
-        agentImage: 'https://via.placeholder.com/40/00FFFF/000000?text=AG6'
+        isNew: false,
+        agentImage: 'https://via.placeholder.com/40/00FFFF/000000?text=AG6',
+        agentName: 'Agent Frank'
       }
   ];
 
@@ -80,47 +92,39 @@ export default function HomePage() {
   //   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   // };
 
+  const primaryTextColor = '#222222'; // Primary text color
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen font-['Inter', 'Roboto', sans-serif]"> {/* Apply font */}
       <Header />
       <main className="flex-grow">
-        <Hero />
+        <Hero /> {/* Our updated Search Hero component */}
 
         {/* Featured Projects Section */}
-        {/* <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={sectionVariants}
-          className="container mx-auto px-4 py-12"
-        > */}
-        <section className="container mx-auto px-4 py-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Featured Projects</h2>
+        <section className="container mx-auto px-4 py-12 lg:py-16">
+          <h2 className="text-4xl font-extrabold mb-8 text-center" style={{ color: primaryTextColor }}>
+            Featured Projects
+          </h2>
+          {/* Using a 12-column grid concept with Tailwind's responsiveness */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {listings.slice(0, 3).map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}
           </div>
         </section>
-        {/* </motion.section> */}
 
         {/* Latest Listings Section */}
-        {/* <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={sectionVariants}
-          className="container mx-auto px-4 py-12"
-        > */}
-        <section className="container mx-auto px-4 py-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Latest Listings</h2>
+        <section className="container mx-auto px-4 py-12 lg:py-16">
+          <h2 className="text-4xl font-extrabold mb-8 text-center" style={{ color: primaryTextColor }}>
+            Latest Listings
+          </h2>
+          {/* Using a 12-column grid concept with Tailwind's responsiveness */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {listings.slice(3, 6).map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}
           </div>
         </section>
-        {/* </motion.section> */}
       </main>
 
       {/* Footer can go here */}

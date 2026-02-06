@@ -2,81 +2,90 @@
 import React, { useState } from 'react';
 
 const Hero = () => {
-  const [activeTab, setActiveTab] = useState('buy'); // 'buy', 'rent', 'new-projects'
+  const [activeTab, setActiveTab] = useState('buy'); // 'buy', 'rent', 'new-projects', 'commercial'
+  const primaryRed = '#ED1C24'; // PropertyGuru Red
+  const primaryText = '#222222'; // Primary text color - not directly used here but for consistency
 
   return (
-    <section className="relative w-full bg-gray-100 py-20 px-4">
-      {/* Background Image/Overlay - Can be added via inline style or a dedicated div */}
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://via.placeholder.com/1920x600?text=Singapore+Skyline')" }}>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+    <section className="relative w-full py-20 md:py-32 flex items-center justify-center min-h-[500px]">
+      {/* High-res Localized Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://via.placeholder.com/1920x800?text=Singapore+Cityscape')", // Placeholder
+        }}
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-          Find Your Dream Property in Singapore
-        </h2>
+      <div className="relative z-10 max-w-5xl mx-auto px-4 w-full">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 text-center leading-tight tracking-wide">
+          Find Your Singapore Dream Home
+        </h1>
+        <p className="text-xl text-white text-center mb-10 opacity-90">
+          Discover properties for sale, rent, and new projects across Singapore.
+        </p>
 
-        {/* Search Bar Tabs */}
-        <div className="bg-white rounded-t-lg overflow-hidden inline-flex shadow-lg mb-4">
-          <button
-            className={`px-6 py-3 text-lg font-semibold transition-colors ${
-              activeTab === 'buy' ? 'bg-primary-red text-white' : 'text-gray-700 hover:bg-gray-100'
-            }`}
-            onClick={() => setActiveTab('buy')}
-          >
-            Buy
-          </button>
-          <button
-            className={`px-6 py-3 text-lg font-semibold transition-colors ${
-              activeTab === 'rent' ? 'bg-primary-red text-white' : 'text-gray-700 hover:bg-gray-100'
-            }`}
-            onClick={() => setActiveTab('rent')}
-          >
-            Rent
-          </button>
-          <button
-            className={`px-6 py-3 text-lg font-semibold transition-colors ${
-              activeTab === 'new-projects' ? 'bg-primary-red text-white' : 'text-gray-700 hover:bg-gray-100'
-            }`}
-            onClick={() => setActiveTab('new-projects')}
-          >
-            New Projects
-          </button>
-        </div>
+        {/* Massive, Centered Search Card */}
+        <div className="bg-white rounded-lg shadow-2xl p-6 md:p-8 lg:p-10 w-full max-w-4xl mx-auto">
+          {/* Search Bar Tabs */}
+          <div className="flex justify-center mb-6 border-b border-gray-200">
+            {['buy', 'rent', 'new-projects', 'commercial'].map((tab) => (
+              <button
+                key={tab}
+                className={`px-4 py-3 text-lg font-semibold capitalize transition-colors duration-200 ${
+                  activeTab === tab
+                    ? 'border-b-4'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+                style={activeTab === tab ? { borderColor: primaryRed, color: primaryRed } : {}}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab.replace('-', ' ')}
+              </button>
+            ))}
+          </div>
 
-        {/* Main Search Input */}
-        <div className="bg-white p-4 rounded-b-lg shadow-xl flex items-center mb-4">
-          <input
-            type="text"
-            placeholder="District, MRT, or Property Name"
-            className="flex-grow p-3 text-lg border-none focus:outline-none"
-          />
-          <button className="bg-primary-red text-white px-8 py-3 rounded-md font-semibold hover:bg-red-700 transition-colors">
-            Search
-          </button>
-        </div>
+          {/* Main Search Input */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <input
+              type="text"
+              placeholder="Search by District, MRT Station, or Condo Name"
+              className="flex-grow p-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2"
+              style={{ borderColor: primaryRed }}
+            />
+            {/* Future: Implement a dropdown or suggestion box here for districts/MRT */}
+            <button
+              style={{ backgroundColor: primaryRed }}
+              className="text-white text-lg font-bold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity duration-300 flex-shrink-0"
+            >
+              Search
+            </button>
+          </div>
 
-        {/* Horizontal Filter Bar */}
-        <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col md:flex-row justify-around items-center space-y-3 md:space-y-0 md:space-x-4">
-          <select className="p-2 border border-gray-300 rounded-md w-full md:w-auto focus:outline-none focus:ring-2 focus:ring-primary-red">
-            <option>Property Type</option>
-            <option>Condo</option>
-            <option>HDB</option>
-            <option>Landed</option>
-          </select>
-          <select className="p-2 border border-gray-300 rounded-md w-full md:w-auto focus:outline-none focus:ring-2 focus:ring-primary-red">
-            <option>Price Range</option>
-            <option>$500k - $1M</option>
-            <option>$1M - $2M</option>
-            <option>$2M+</option>
-          </select>
-          <select className="p-2 border border-gray-300 rounded-md w-full md:w-auto focus:outline-none focus:ring-2 focus:ring-primary-red">
-            <option>Bedrooms</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4+</option>
-          </select>
+          {/* Horizontal Filter Bar (Simplified for now, can be expanded) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <select className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+              <option>Property Type</option>
+              <option>Condo</option>
+              <option>HDB</option>
+              <option>Landed</option>
+            </select>
+            <select className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+              <option>Price Range</option>
+              <option>$500k - $1M</option>
+              <option>$1M - $2M</option>
+              <option>$2M+</option>
+            </select>
+            <select className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+              <option>Bedrooms</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4+</option>
+            </select>
+          </div>
         </div>
       </div>
     </section>
